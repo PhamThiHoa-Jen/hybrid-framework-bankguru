@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="hybrid-framework-bankguru" parallel="false">
+  <test name="run on Firefox">
+    <classes>
+      <class name="com.bankguru.user.User_01_New_Customer"/>
+    </classes>
+  </test> <!-- Test -->
+</suite> <!-- Suite -->
