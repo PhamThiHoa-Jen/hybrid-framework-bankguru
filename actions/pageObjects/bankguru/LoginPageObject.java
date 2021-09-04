@@ -1,4 +1,4 @@
-package pageObject;
+package pageObjects.bankguru;
 
 public class LoginPageObject {
 
