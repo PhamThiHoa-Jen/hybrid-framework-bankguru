@@ -3,6 +3,9 @@
   <test name="run on Firefox">
     <classes>
       <class name="com.bankguru.login.Level_01_Register_Login_Repeat_Yourself"/>
+      <class name="com.bankguru.login.Level_02_Register_Login_BasePage_1"/>
+      <class name="com.bankguru.login.Level_02_Register_Login_BasePage_2"/>
+      <class name="com.bankguru.login.Level_02_Register_Login_BasePage_3"/>
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->
