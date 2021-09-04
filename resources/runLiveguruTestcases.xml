@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="hybrid-framework-liveguru" parallel="false">
+  <test name="run on Firefox">
+    <classes>
+      <class name="com.liveguru.login.Level_03_Register_Login_PageObject"/>
+    </classes>
+  </test> <!-- Test -->
+</suite> <!-- Suite -->
