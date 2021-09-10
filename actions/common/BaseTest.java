@@ -1,6 +1,7 @@
 package common;
 
 import java.io.File;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
@@ -9,8 +10,6 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-
-
 
 public class BaseTest {
 	private WebDriver driver;
@@ -60,5 +59,11 @@ public class BaseTest {
 	public static String getDirectorySlash(String folderName) {
 		String separator = File.separator;
 		return separator + folderName + separator;
+	}
+	
+	public String getEmailRandom() {
+		Random rand = new Random();
+		return "testing" + rand.nextInt(999999) + "@live.com";
+
 	}
 }
