@@ -1,5 +1,6 @@
 package common;
 
+import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
@@ -7,19 +8,28 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+
+
 public class BaseTest {
 	private WebDriver driver;
 	private String ProjectLocation = System.getProperty("user.dir");
 	
+	private enum BROWSER {
+		CHROME, FIREFOX, IE, SAFARI, EDGE_LEGACY, EDGE_CHROMIUM, OPERA;
+	}
+	
 	protected WebDriver getBrowserDriver(String browserName) {
-		if(browserName.equalsIgnoreCase("firefox")) {
-		System.setProperty("webdriver.gecko.driver", ProjectLocation + "/browserDrivers/geckodriver");
+		BROWSER browser =  BROWSER.valueOf(browserName.toUpperCase());
+		if(browser==BROWSER.FIREFOX) {
+		System.setProperty("webdriver.gecko.driver", ProjectLocation + getDirectorySlash("browserDrivers") + "geckodriver");
 		driver = new FirefoxDriver();
-		} else if(browserName.equalsIgnoreCase("chrome")) {
-			System.setProperty("webdriver.chrome.driver", ProjectLocation + "/browserDrivers/chromedriver");
+		} else if(browser==BROWSER.CHROME) {
+			System.setProperty("webdriver.chrome.driver", ProjectLocation + getDirectorySlash("browserDrivers") + "chromedriver");
 			driver = new ChromeDriver();
-		} else if(browserName.equalsIgnoreCase("edge_chromium")) {
-			System.setProperty("webdriver.edge.driver", ProjectLocation + "/browserDrivers/msedgedriver");
+		} else if(browser==BROWSER.EDGE_CHROMIUM) {
+			System.setProperty("webdriver.edge.driver", ProjectLocation + getDirectorySlash("browserDrivers") + "msedgedriver");
 			driver = new EdgeDriver();
 		} else {
 			throw new RuntimeException("Please enter correct browser name!");
@@ -29,14 +39,15 @@ public class BaseTest {
 	}
 	
 	protected WebDriver getBrowserDriver(String browserName, String appUrl) {
-		if(browserName.equalsIgnoreCase("firefox")) {
-		System.setProperty("webdriver.gecko.driver", ProjectLocation + "/browserDrivers/geckodriver");
-		driver = new FirefoxDriver();
-		} else if(browserName.equalsIgnoreCase("chrome")) {
-			System.setProperty("webdriver.chrome.driver", ProjectLocation + "/browserDrivers/chromedriver");
+		BROWSER browser =  BROWSER.valueOf(browserName.toUpperCase());
+		if(browser==BROWSER.FIREFOX) {
+			WebDriverManager.firefoxdriver().setup();
+			driver = new FirefoxDriver();
+		} else if(browser==BROWSER.CHROME) {
+			WebDriverManager.chromedriver().setup();
 			driver = new ChromeDriver();
-		} else if(browserName.equalsIgnoreCase("edge_chromium")) {
-			System.setProperty("webdriver.edge.driver", ProjectLocation + "/browserDrivers/msedgedriver");
+		} else if(browser==BROWSER.EDGE_CHROMIUM) {
+			WebDriverManager.edgedriver().setup();
 			driver = new EdgeDriver();
 		} else {
 			throw new RuntimeException("Please enter correct browser name!");
@@ -44,5 +55,10 @@ public class BaseTest {
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		driver.get(appUrl);
 		return driver;
+	}
+	
+	public static String getDirectorySlash(String folderName) {
+		String separator = File.separator;
+		return separator + folderName + separator;
 	}
 }
