@@ -15,6 +15,12 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import pageObjects.nopcommerce.MyAccountPageObject;
+import pageObjects.nopcommerce.OrderPageObject;
+import pageObjects.nopcommerce.PageGeneratorManager;
+import pageObjects.nopcommerce.SearchPageObject;
+import pageUIs.nopcommerce.BasePageUI;
+
 public class BasePage {
 	public static BasePage getBasePage() {
 		return new BasePage();
@@ -365,6 +371,25 @@ public class BasePage {
 		explicitWait = new WebDriverWait(driver, timeout);
 		explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(getByXpath(locator)));
 	}
+	
+	public SearchPageObject openSearchPage(WebDriver driver) {
+		waitForElementClickable(driver, BasePageUI.SEARCH_PAGE_FOOTER);
+		clickToElement(driver, BasePageUI.SEARCH_PAGE_FOOTER);
+		return PageGeneratorManager.getSearchPage(driver);
+	}
+	
+	public OrderPageObject openOrderPage(WebDriver driver) {
+		waitForElementVisible(driver, BasePageUI.ORDER_PAGE_FOOTER);
+		clickToElement(driver, BasePageUI.ORDER_PAGE_FOOTER);
+		return PageGeneratorManager.getOrderPage(driver);
+	}
+
+	public MyAccountPageObject openMyAccountPage(WebDriver driver) {
+		waitForElementVisible(driver, BasePageUI.MY_ACCOUNT_PAGE_FOOTER);
+		clickToElement(driver, BasePageUI.MY_ACCOUNT_PAGE_FOOTER);
+		return PageGeneratorManager.getMyAccountPage(driver);
+	}
+
 	
 	private Alert alert;
 	private Select select;
