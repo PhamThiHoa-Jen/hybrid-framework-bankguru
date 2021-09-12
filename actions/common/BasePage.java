@@ -165,6 +165,10 @@ public class BasePage {
 	public int getElementSize(WebDriver driver, String locator) {
 		return getElements(driver, locator).size();
 	}
+	
+	public int getElementSize(WebDriver driver, String locator, String... params) {
+		return getElements(driver, getDynamicParams(locator, params)).size();
+	}
 
 	public void selectDropdownByText(WebDriver driver, String locator,
 			String itemText) {
@@ -288,6 +292,12 @@ public class BasePage {
 		action.sendKeys(getElement(driver, locator), key).perform();
 	}
 
+	public void presskeyToElement(WebDriver driver, String locator, Keys key, String... params) {
+		action = new Actions(driver);
+		locator = getDynamicParams(locator, params);
+		action.sendKeys(getElement(driver, locator), key).perform();
+	}
+	
 	public Object executeForBrowser(WebDriver driver, String javaScript) {
 		jsExecutor = (JavascriptExecutor) driver;
 		return jsExecutor.executeScript(javaScript);
